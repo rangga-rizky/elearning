@@ -19,3 +19,7 @@ Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index');
 
+//courses
+Route::get('/courses', 'CourseController@index');
+Route::get('/courses/category/{category_id}', 'CourseController@showByCategory');
+

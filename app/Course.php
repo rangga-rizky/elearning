@@ -16,6 +16,17 @@ class Course extends Model
         return $this->hasMany('App\Enrollment');
     }
 
+     public function category()
+    {
+        return $this->belongsTo('App\CourseCategory','course_category_id');
+    }
+
+
+     public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
     public function scopeEnrolled($query,$user_id)
     {
         return $query->whereHas('enrollments', function ($q) use($user_id){

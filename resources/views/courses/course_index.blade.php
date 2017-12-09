@@ -10,17 +10,22 @@
   <section class="content-header">
     <div class="header-section ">
         <h1>
-            <i class="gi gi-book_open"></i>Welcome to <strong>Elearning Laravel</strong><br><small>my courses !</small>
+            <i class="gi gi-book_open"></i>Courses Catalogue
         </h1>
     </div>
   </section>
 
     <!-- Main content -->
     <section class="content">
-      <!-- Small boxes (Stat box) -->
-     
-      <!-- /.row -->
       <!-- Main row -->
+      <div class="row">
+         <div class="col-md-8">           
+           @foreach($courseCategories as $category)
+              <a class="btn btn-default btn-sm" href="{{URL::to('courses/category/'.$category->id)}}" style="margin-top: -5px; border: 0px; box-shadow: none; color: #3c8dbc; font-weight: 600; background: rgb(255, 255, 255);">{{$category->name}}</a>
+           @endforeach
+         </div>        
+      </div>
+      <br>
       <div class="row">
           <?php $color = ['red','green','yellow','blue']  ?>
           @if(count($courses) > 0)
@@ -31,7 +36,8 @@
             <span class="info-box-icon bg-{{$color[rand(0,3)]}}"><i class="fa fa-star-o"></i></span>
             <div class="info-box-content">
               <span class="info-box-number">{{ $course->title}}</span>              
-              <span class="info-box-text">{{ $course->description}}</span>
+              <span class="info-box-text"><strong>Author :</strong> {{ $course->user['username']}}</span><br>
+              <span class="info-box-text">{{ $course->category['name']}}</span>
             </div>
         <!-- /.info-box-content -->
           </div>           
@@ -39,12 +45,14 @@
          @endforeach
          @else
           <div class="panel panel-default">
-            <div class="panel-body">Anda Belum Enroll pada Kursus apapun! buka <a href="{{URL::to(courses)}}">Katalog</a></div>
+            <div class="panel-body">Tidak ditemukan kursus!</div>
           </div>
 
          @endif
       </div>
-      <!-- /.row (main row) -->
+      <div clas="row">
+        <?php echo $courses->render(); ?>
+      </div>
 
     </section>
     <!-- /.content -->
