@@ -30,12 +30,12 @@ class AuthServiceProvider extends ServiceProvider
 
     public function registerDashboardPolicies()
     {        
-        Gate::define('dashboard-student', function ($user) {
+        /*Gate::define('dashboard-student', function ($user) {
             return $user->inRole('student');
         });
 
         Gate::define('dashboard-teacher', function ($user) {
             return $user->inRole('teacher');
-        });
+        });*/
     }
 }

@@ -11,4 +11,9 @@ class Session extends Model
     {
         return $this->hasMany('App\Assingment');
     }
+
+    public function course()
+    {
+        return $this->hasOne('App\Course');
+    }
 }

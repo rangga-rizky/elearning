@@ -36,4 +36,14 @@ class User extends Authenticatable
     {
         return $this->role()->where('name', $role)->count() == 1;
     }
+
+    public function assignments()
+    {
+        return $this->hasMany('App\Author');
+    }
+
+    public function enrollments()
+    {
+        return $this->hasMany('App\Enrollment');
+    }
 }
