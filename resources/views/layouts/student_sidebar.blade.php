@@ -25,7 +25,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="{{URL::to('dashboard')}}"><i class="fa fa-circle-o"></i> My Courses</a></li>
-            <li><a href="{{URL::to('courses')}}"><i class="fa fa-circle-o"></i> Catalogue</a></li>
+            <li><a href="{{URL::to('courses/student')}}"><i class="fa fa-circle-o"></i> Catalogue</a></li>
           </ul>
         </li>
         <li class="treeview">

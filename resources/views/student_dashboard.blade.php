@@ -29,10 +29,12 @@
           <div class="info-box">
          <!-- Apply any bg-* class to to the icon to color it -->
             <span class="info-box-icon bg-{{$color[rand(0,3)]}}"><i class="fa fa-star-o"></i></span>
+            <a href="{{ url('courses/'.$course->id) }}">
             <div class="info-box-content">
               <span class="info-box-number">{{ $course->title}}</span>              
               <span class="info-box-text">{{ $course->description}}</span>
             </div>
+            </a>
         <!-- /.info-box-content -->
           </div>           
         </div>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Course;
 use Illuminate\Http\Request;
+use DB;
 
 class DashboardController extends Controller
 {
@@ -27,6 +28,16 @@ class DashboardController extends Controller
     }
 
     private function teacher($user){
-    	return view('teacher_dashboard', ['user' => $user]);
+        $user = Auth::user();
+        $courses = DB::table('courses')
+                    ->select('courses.id as c_id', 'title', 'user_id', 'description', 'course_categories.name')
+                    ->join('course_categories', 'course_categories.id', '=', 'courses.course_category_id')
+                    ->join('users', 'users.id', '=', 'courses.user_id')
+                    ->where('users.username','=', $user['username'])
+                    ->get();
+        $cc = DB::table('course_categories')->get();
+        return view('teachers/courses', ['courses' => $courses,
+                                         'course_cat'=>$cc,
+                                        'user' =>$user]);
     }
 }

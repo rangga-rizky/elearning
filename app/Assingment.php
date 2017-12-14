@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Assingment extends Model
@@ -13,4 +14,10 @@ class Assingment extends Model
         return $this->belongsTo('App/Session');
     }
 
+     public function studentAssignments()
+    {
+        return $this->hasMany('App\StudentAssingment');
+    }
+
+    
 }

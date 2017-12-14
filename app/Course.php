@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Course extends Model
 {
-   public function sessions()
+    protected $fillable = [
+        'title', 'description'
+    ];   
+    
+    public function sessions()
     {
         return $this->hasMany('App\Session');
     }

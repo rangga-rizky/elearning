@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Course;
 use App\CourseCategory;
 use Auth;
+use DB;
+use Session;
 
 class CourseController extends Controller
 {
@@ -14,21 +16,80 @@ class CourseController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(){
+    //menampilkan katalog kursus
+    public function indexStudent(){
     	$user = Auth::user();
         $courses = Course::paginate(5);
         $courseCategories = CourseCategory::all();
-        return view('courses/course_index', ['user' => $user,
+        return view('student/course_index', ['user' => $user,
         							'courses' =>  $courses ,
         							'courseCategories' => $courseCategories]);
     }
 
+    //membuat kursus baru untuk teacher
+    public function store_teacher(Request $request)
+    {
+        $user = Auth::user();
+
+        $this->validate($request, [
+            'title' => 'required',
+            'course_category' => 'required'//,
+            // 'description' => 'required'
+        ]);
+         Session::flash('flash_message', 'A course successfully added!');
+        $id = DB::table('courses')->insertGetId(
+            [
+                'user_id' => $user['id'], 
+                'course_category_id' => $request->input('course_category'),
+                'title' => $request->input('title'),
+                'description' => $request->input('description')
+            ]
+        );
+
+        return redirect()->back();
+    }
+
+
+    //menampilkan halaman kursus
+    public function show($id){
+        $user = Auth::user();
+        $course = Course::where("id",$id)->first();
+        return view('student/course_show', ['user' => $user,
+                                    'course' =>  $course ]);
+
+    }
+
+    //menampilkan katalog kursus bedasarkan kategori
     public function showByCategory($category_id){
         $user = Auth::user();
         $courses = Course::where("course_category_id",$category_id)->paginate(5);
         $courseCategories = CourseCategory::all();
-        return view('courses/course_index', ['user' => $user,
+        return view('student/course_index', ['user' => $user,
                                     'courses' =>  $courses ,
                                     'courseCategories' => $courseCategories]);
+    }
+
+    //menampilkan halaman untuk mengedit kursus untuk teacher owner kursus
+    public function edit_teacher($id)
+    {
+        $course = Course::find($id);
+        $user = Auth::user();
+        $courses = DB::table('courses')
+                    ->select('courses.id as c_id', 'title', 'user_id', 'description', 'course_categories.name','course_categories.id as cc_id' )
+                    ->join('course_categories', 'course_categories.id', '=', 'courses.course_category_id')
+                    ->where('courses.id', '=', $id)
+                    ->get();
+        $cc = DB::table('course_categories')->get();
+        // return view('teachers/courses', );
+        return view('teachers/courses-edit',['value' => $courses, 'course_cat'=>$cc ,'user'=>$user ]);
+    }
+
+    //menghapus kursus untuk teacher owner kursus
+     public function delete_teacher($id)
+    {
+        DB::table('courses')->where('id', '=', $id)->delete();
+        Session::flash('flash_message', 'A course successfully deleted!');
+        return redirect()->back();
+     
     }
 }

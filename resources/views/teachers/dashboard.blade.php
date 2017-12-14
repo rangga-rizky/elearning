@@ -1,5 +1,7 @@
  @include('layouts/header')
- @include('layouts/teacher_sidebar')
+
+  <!-- Left side column. contains the logo and sidebar -->
+@include('layouts/teacher_nav')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">

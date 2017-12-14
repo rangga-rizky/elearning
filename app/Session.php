@@ -12,8 +12,15 @@ class Session extends Model
         return $this->hasMany('App\Assingment');
     }
 
+    public function lessons()
+    {
+        return $this->hasMany('App\Lesson');
+    }
+
     public function course()
     {
-        return $this->hasOne('App\Course');
+        return $this->belongsTo('App\Course');
     }
+
+    
 }
