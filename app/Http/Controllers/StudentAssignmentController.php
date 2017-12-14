@@ -15,15 +15,23 @@ class StudentAssignmentController extends Controller
     
     public function store(Request $request){
     	$user = Auth::user();
+
+
+      $validatedData = $request->validate([
+        'assignment_id' => 'required',
+        'file' => 'required',
+      ]);
+
     	$file = $request->file('file');
     	$assignment_id = $request->input('assignment_id');
+
 
     	if(empty($assignment_id) || empty($file) ){
     		return response()->json(['error' => 'true', 'message' => 'data tidak lengkap']);
     	}
 
     	$filename = $user->id."_".$assignment_id.".".$file->getClientOriginalExtension();
-    	$destinationPath = 'file/lessons';
+    	$destinationPath = 'files/student_assignment';
       	$file->move($destinationPath,$filename);
 
 
@@ -32,11 +40,13 @@ class StudentAssignmentController extends Controller
       		$studentAssingment['file_path'] = $destinationPath;
       		$studentAssingment->save();
       	}else{
-      		$data['file_path'] = $destinationPath;
+      		$data['file_path'] = $destinationPath."/".$filename ;
       		$data['assignment_id'] = $assignment_id;
-			$data['user_id'] = $user->id;
-			$studentAssingmentCreated = StudentAssingment::create($data);
+		  	  $data['user_id'] = $user->id;
+			    $studentAssingmentCreated = StudentAssingment::create($data);
       	}
+
+        return redirect()->back();
 
     }
 }

@@ -22,10 +22,12 @@ class AssignmentController extends Controller
     	$studentAssingment = StudentAssingment::where("user_id",$user->id)->where("assignment_id",$assignment_id)->first();
 
         $dt = Carbon::parse($assignment['closed_time']);
-        $dtUpdatedAt = Carbon::parse($studentAssingment['updated_at']);
         $assignment["remaining"] = $dt->diffForHumans(Carbon::now());
         $assignment['closed_time'] = $dt->formatLocalized('%A %d %B %Y');
-        $studentAssingment['updated_at'] =  $dtUpdatedAt->formatLocalized('%A %d %B %Y');
+        if(!empty($studentAssingment)){
+            $dtUpdatedAt = Carbon::parse($studentAssingment['updated_at']);
+            $studentAssingment['last_updated'] =  $dtUpdatedAt->formatLocalized('%A %d %B %Y');
+        }
         
         return view('student/assignment', ['user' => $user,
                                     'assignment' =>  $assignment ,
