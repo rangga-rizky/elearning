@@ -40,15 +40,25 @@ class User extends Authenticatable
     public function assignments()
     {
         return $this->hasMany('App\Author');
-    }
-
-    public function enrollments()
-    {
-        return $this->hasMany('App\Enrollment');
-    }
+    }   
 
     public function courses()
     {
         return $this->hasMany('App\Course');
+    }
+
+    public function userGroups()
+    {
+        return $this->hasMany('App\UserGroup');
+    }
+
+    public function getGroupsIds(){
+
+        foreach ($this->userGroups()->get() as $user_group) {
+            $groupsIds[] = $user_group->group_id;
+        }
+        return $groupsIds;
+
+
     }
 }

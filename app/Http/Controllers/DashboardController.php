@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Auth;
 use App\Course;
+use App\Event;
 use Illuminate\Http\Request;
 use DB;
 
@@ -17,14 +18,25 @@ class DashboardController extends Controller
         $user = Auth::user();
         if($user["role_id"] == 1 ){
             return $this->student($user);
-        }else{
+        }else if($user["role_id"] == 2){
             return $this->teacher($user);
+        }else{
+            return redirect("admin/dashboard");
         }
     }
 
     private function student($user){
-        $courses = Course::enrolled($user->id);
-		return view('student_dashboard', ['user' => $user,'courses' =>  $courses]);
+        $user = Auth::user();
+        if(sizeof($user->userGroups) > 0){
+            $events = Event::byGroup($user->userGroups);
+            $courses = Course::enrolled($user->userGroups);
+        }else{
+            $events = [];
+            $courses = [];
+        }
+		return view('student_dashboard', ['user' => $user,
+                                        'courses' =>  $courses,
+                                        'events' => $events]);
     }
 
     private function teacher($user){

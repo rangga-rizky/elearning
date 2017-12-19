@@ -31,10 +31,14 @@ class Course extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function scopeEnrolled($query,$user_id)
-    {
-        return $query->whereHas('enrollments', function ($q) use($user_id){
-    		$q->where('user_id', $user_id);	
-		})->get();
+    public function scopeEnrolled($query,$groups)
+    {        
+        foreach ($groups as $group) {
+            $group_ids[] = $group->id;
+        }
+
+        return $query->whereHas('enrollments', function ($q) use($group_ids){
+                $q->whereIn('group_id', $group_ids);   
+            })->get();
     }
 }

@@ -16,26 +16,23 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
+        <li class="active">
+          <a href="{{URL::to('admin/dashboard')}}">
+            <i class="fa fa-th"></i> <span>Home</span>
+          </a>
+        </li>
         <li class="active treeview">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Courses</span>
+            <i class="fa fa-dashboard"></i> <span>User Management</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="{{URL::to('dashboard')}}"><i class="fa fa-circle-o"></i> My Courses</a></li>
-            <li><a href="{{URL::to('courses/student')}}"><i class="fa fa-circle-o"></i> Catalogue</a></li>
+            <li><a href="{{URL::to('admin/user/create')}}"><i class="fa fa-circle-o"></i> Create User</a></li>
+            <li><a href="{{URL::to('admin/user')}}"><i class="fa fa-circle-o"></i> Edit User</a></li>
           </ul>
-        </li>
-        <li class="treeview">
-          <ul class="treeview-menu">
-            <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-            <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-            <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-            <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
-          </ul>
-        </li>
+
         
       </ul>
     </section>

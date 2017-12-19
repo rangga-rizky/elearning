@@ -12,6 +12,11 @@ class Session extends Model
         return $this->hasMany('App\Assingment');
     }
 
+    public function quizes()
+    {
+        return $this->hasMany('App\Quiz');
+    }
+
     public function lessons()
     {
         return $this->hasMany('App\Lesson');

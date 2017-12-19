@@ -76,7 +76,13 @@
             <tr>
               <td></td>
               <td>
-                <button type="submit" class="btn btn-primary">Submit</button>  
+                <button type="submit" class="btn btn-primary">
+                @if(is_null($studentAssingment))
+                  Submit
+                @else
+                  Update Submit
+                @endif
+               </button>  
               </td>
             </tr>
           </form>

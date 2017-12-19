@@ -15,6 +15,13 @@ class VerifyCsrfToken extends Middleware
         //
         "student_assignment",
         "login",
-        "courses"
+        "courses",
+        "student_answer",
+        "register",
+        "admin/user",
+        "admin/user/update",
+        "admin/user/reset_password",
+        "admin/user/delete"
+
     ];
 }

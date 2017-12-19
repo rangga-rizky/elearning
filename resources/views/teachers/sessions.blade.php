@@ -19,29 +19,36 @@
 	          </div>
 	        </div><!-- /.box-header -->
 	        <div class="box-body">
-	          
-	          <div class="form-group">
-	            <label>Select course name</label>
-	            <select id="course_name" class="form-control select2" style="width: 100%;" name="course" >
-	            	<!-- onchange="if (this.value) if() window.location.href='sessions/'+this.value" -->
-	              @if($c_id!='false')
-	              	<option value="">All course</option>
-	                  @foreach($courses as $cc)      
-	                    @if($c_id == $cc->c_id)
-	                      <option value="{{ $cc->c_id }}" selected >{{ $cc->title }}</option>
-	                    @else
-	                      <option value="{{ $cc->c_id }}">{{ $cc->title }}</option>
-	                    @endif
-	                  @endforeach
+	          <div class="form-inline" id="select-course">
+	        	<div class="form-group">
+	            	<label class="col-sm-12">Select course name</label>
+	        	</div>
+	          	<div class="form-group">
+	            	<div class="col-sm-12 ">
+		            	<select  id="course_name" class="form-control select2" style="width: 100%;" name="course" >
+		            	<!-- onchange="if (this.value) if() window.location.href='sessions/'+this.value" -->
+		              	@if($c_id!='false')
+		              		<option value="">All course</option>
+		                  	@foreach($courses as $cc)      
+		                    	@if($c_id == $cc->c_id)
+		                      	<option value="{{ $cc->c_id }}" selected >{{ $cc->title }}</option>
+		                    	@else
+		                      	<option value="{{ $cc->c_id }}">{{ $cc->title }}</option>
+		                    	@endif
+		                  	@endforeach
 
-	              @else
-	              	<option selected  value="">All course</option>
-	                @foreach($courses as $cc)      
-	                  <option value="{{ $cc->c_id }}">{{ $cc->title }}</option>
-	                @endforeach
-	              @endif
-	            </select>
-	          </div><!-- /.form-group -->
+		              	@else
+		              		<option selected  value="">All course</option>
+		                	@foreach($courses as $cc)      
+		                  	<option value="{{ $cc->c_id }}">{{ $cc->title }}</option>
+		                	@endforeach
+		              	@endif
+		            	</select>
+	            	</div>
+	        	</div>
+	            <button type="submit" id="change_course" class="btn btn-default">Select</button>
+	           </div>
+	          <!-- /.form-group -->
 	          <table id="example2" class="table table-bordered table-hover">
 	                    <thead>
 	                      <tr>
@@ -65,10 +72,15 @@
 	                        <td>{{ $c->title }}</td>
 	                        <td>{{ $c->description }}</td>
 	                        <td>
-	                        	<a href="sessions/edit/{{$c->s_id}}" class="btn btn-warning"><i class="fa fa-pencil"></i> Edit</a>
-	                        	<a href="sessions/delete/{{$c->s_id}}" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
-	                        	<a href="sessions/lessons/{{$c->s_id}}" class="btn btn-primary"><i class="fa fa-book"></i> Lessons</a>
-	                        	<a href="sessions/assignments/{{$c->s_id}}" class="btn btn-primary"><i class="fa fa-book-alt"></i> Assignment</a>
+	                        	@if($c_id=='false')
+	                        		<?php $str_url = 'sessions/'; ?>
+	                        	@else
+	                        		<?php $str_url = ''; ?>
+	                        	@endif
+	                        	<a href="{{$str_url}}edit/{{$c->s_id}}" class="btn btn-warning"><i class="fa fa-pencil"></i> Edit</a>
+	                        	<a href="{{$str_url}}delete/{{$c->s_id}}" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
+	                        	<a href="{{$str_url}}lessons/{{$c->s_id}}" class="btn btn-primary"><i class="fa fa-book"></i> Lessons</a>
+	                        	<a href="{{$str_url}}assignments/{{$c->s_id}}" class="btn btn-primary"><i class="fa fa-book-alt"></i> Assignment</a>
 	                        </td>
 	                      </tr>
 	                    @endforeach
@@ -147,9 +159,37 @@
 	        	return false;
 
       		});
+
       });
-        function change_url(val) {
-        	// window.location = 'sessions/'+val; // redirect
-        }
+      		$('button#change_course').click( function () {
+      			// e.preventDefault();
+      			// console.log('LALALA');
+      			var val = $('select#course_name').val();
+	        	var url = window.location.pathname;
+	        	var loc='';
+	        	if (url=='/sessions/teacher') {
+					 // loc = window.location+'/'+val;
+					 if (val=='') { 
+					 	// window.location = '../teacher'; // redirect		
+					 }else{
+					 	window.location = '/sessions/courses/'+val; // redirect		
+					 }
+					 // window.location =loc;
+					 // console.log(loc);
+	        	}else{
+		        	if (val=='') {
+		        		// console.log(window.location.hostname+':'+window.location.port+'/sessions');
+		        		// window.location = window.location.hostname+':'+window.location.port+'/sessions'; // redirect
+		        		window.location = '../teacher';
+		        	}else{
+			        	window.location  = '../courses/'+val; // redirect
+		        		// console.log(location);
+		        		// window.location = loc;
+		        	}
+	        		 // console.log(loc);
+	        	}
+	        	// return true;
+	        	// window.location='sessions';
+      		});
 
     </script>

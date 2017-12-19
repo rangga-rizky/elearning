@@ -21,7 +21,7 @@
       @if(count($course->sessions) > 0)
       @foreach($course->sessions as $session)
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-8">
         <div class="box box-primary">
             <!-- /.box-header -->
             <div class="box-body">
@@ -51,11 +51,30 @@
               @endforeach
               </ul>
 
+              @if(sizeof($session->assignments) > 0)      
               <hr>
               <strong><i class="fa fa-pencil margin-r-5"></i> Upload Tugas</strong>
+              <ul>
               @foreach($session->assignments as $assignment)
+              <li>
                 <p><a href="{{ url('assignment/student/'.$assignment->id) }}">{{$assignment->title}}</a></p>
+               </li>
               @endforeach
+              </ul>  
+              @endif
+
+              @if(sizeof($session->quizes) > 0)
+
+              <hr>
+              <strong><i class="fa fa-question-circle margin-r-5"></i> Quiz</strong>              
+              <ul>
+              @foreach($session->quizes as $quiz)
+                <li>
+                <p><a href="{{ url('/quiz/student/'.$quiz->id) }}">{{$quiz->title}}</a></p>
+                </li>
+              @endforeach
+              </ul>
+              @endif
 
 
             </div>
