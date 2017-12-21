@@ -20,6 +20,11 @@ class Course extends Model
         return $this->hasMany('App\Enrollment');
     }
 
+     public function grades()
+    {
+        return $this->hasMany('App\Grading');
+    }
+
      public function category()
     {
         return $this->belongsTo('App\CourseCategory','course_category_id');
@@ -33,8 +38,9 @@ class Course extends Model
 
     public function scopeEnrolled($query,$groups)
     {        
+
         foreach ($groups as $group) {
-            $group_ids[] = $group->id;
+            $group_ids[] = $group->group_id;
         }
 
         return $query->whereHas('enrollments', function ($q) use($group_ids){

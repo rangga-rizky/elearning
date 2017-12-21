@@ -26,10 +26,14 @@ class QuizController extends Controller
 
         $dt = Carbon::parse($quiz['closed_time']);
         $quiz["remaining"] = $dt->diffForHumans(Carbon::now());
-        $quiz['closed_time'] = $dt->formatLocalized('%A %d %B %Y');
-       
+        $is_opened = 1;
+        if (strtotime($quiz['closed_time'] ) < time()) {
+            $is_opened = 0;
+        }
+        $quiz['closed_time'] = $dt->formatLocalized('%A %d %B %Y');     
         
         return view('student/quiz', ['user' => $user,
+                                    'is_opened' => $is_opened,
                                     'quiz' =>  $quiz ,
                                     'quizEnrollments' => $quizEnrollments]);
 

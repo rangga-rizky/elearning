@@ -15,7 +15,7 @@ class Event extends Model
     public function scopeByGroup($query,$groups)
     {        
         foreach ($groups as $group) {
-            $group_ids[] = $group->id;
+            $group_ids[] = $group->group_id;
         }
 
         return $query->whereHas('group', function ($q) use($group_ids){

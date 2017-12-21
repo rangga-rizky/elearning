@@ -52,6 +52,11 @@ class User extends Authenticatable
         return $this->hasMany('App\UserGroup');
     }
 
+    public function grades()
+    {
+        return $this->hasMany('App\Grading');
+    }
+
     public function getGroupsIds(){
 
         foreach ($this->userGroups()->get() as $user_group) {

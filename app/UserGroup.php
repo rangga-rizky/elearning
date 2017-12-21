@@ -14,10 +14,11 @@ class UserGroup extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function groups()
+
+
+    public function group()
     {
         return $this->belongsTo('App\Group');
     }
-
     
 }

@@ -47,9 +47,17 @@
             <tr>
               <td></td>
               <td>
+                @if($is_opened)
                 <a href="{{url('quiz/student/start/'.$quiz['id'])}}" class="btn btn-primary">
                   Start Quiz
                </a> 
+               @else
+                <a href="" class="btn btn-danger">
+                  Quiz Closed
+               </a> 
+
+               @endif
+
               </td>
             </tr>
           @endif

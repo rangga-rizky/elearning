@@ -18,6 +18,10 @@ class Group extends Model
 
     public function user_groups()
     {
-        return $this->hasMany('App\UserGroup');
+        return $this->hasMany('App\UserGroup','id','group_id');
+    }
+
+    public function grades(){
+        return $this->hasMany('App\Grading');
     }
 }

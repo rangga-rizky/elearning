@@ -46,6 +46,9 @@ Route::get('/quiz/student/{quiz_id}', 'QuizController@showForUser'); //menampila
 //student answer
 Route::post('/student_answer', 'QuizStudentAnswerController@store'); 
 
+//user
+Route::get('/user', 'UserController@show');
+
 
 Route::prefix('admin')->namespace('Admin')->middleware('can:admin-only')->group(function () {
    Route::get('/dashboard', 'DashboardController@index');

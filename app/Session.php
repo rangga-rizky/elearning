@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Session extends Model
 {
+    protected $fillable = [
+        'course_id','title', 'description'
+    ];   
     
     public function assignments()
     {
