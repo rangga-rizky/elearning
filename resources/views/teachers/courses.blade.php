@@ -41,7 +41,7 @@
 	                        	<a href="courses/edit/{{$c->c_id}}" class="btn btn-warning"><i class="fa fa-pencil"></i> Edit</a>
 	                        	<a href="courses/delete/{{$c->c_id}}" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
 	                        	<a href="courses/enrollment/{{$c->c_id}}" class="btn btn-primary"><i class="fa fa-users"></i> Enrollment</a>
-	                        	<a href="sessions/courses/{{$c->c_id}}" class="btn btn-primary"><i class="fa fa-time"></i> Session</a>
+	                        	<a href="courses/manage/{{$c->c_id}}" class="btn btn-primary"><i class="fa fa-time"></i> Manage</a>
 	                        </td>
 	                      </tr>
 	                    @endforeach

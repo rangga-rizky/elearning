@@ -7,7 +7,15 @@
     <section class="content">
 
       <div class="row">
-      	
+      	<div class="col-md-12">
+        	@if($c_id=='false')
+        		<a class="btn btn-primary" href="create"><i class="fa fa-plus"></i> Create a session</a>
+        	@else
+        		<a class="btn btn-primary" href="../create"><i class="fa fa-plus"></i> Create a session</a>
+        	@endif
+        	<br>
+        	<br>
+      	</div>
         <!-- /.col (left) -->
         <div class="col-md-12">
 	      <div class="box box-default">
@@ -73,14 +81,13 @@
 	                        <td>{{ $c->description }}</td>
 	                        <td>
 	                        	@if($c_id=='false')
-	                        		<?php $str_url = 'sessions/'; ?>
-	                        	@else
 	                        		<?php $str_url = ''; ?>
+	                        	@else
+	                        		<?php $str_url = '../'; ?>
 	                        	@endif
 	                        	<a href="{{$str_url}}edit/{{$c->s_id}}" class="btn btn-warning"><i class="fa fa-pencil"></i> Edit</a>
 	                        	<a href="{{$str_url}}delete/{{$c->s_id}}" class="btn btn-danger"><i class="fa fa-trash"></i> Delete</a>
-	                        	<a href="{{$str_url}}lessons/{{$c->s_id}}" class="btn btn-primary"><i class="fa fa-book"></i> Lessons</a>
-	                        	<a href="{{$str_url}}assignments/{{$c->s_id}}" class="btn btn-primary"><i class="fa fa-book-alt"></i> Assignment</a>
+	                        	<a href="{{$str_url}}detail/{{$c->s_id}}" class="btn btn-primary"><i class="fa fa-book"></i> Detail</a>
 	                        </td>
 	                      </tr>
 	                    @endforeach

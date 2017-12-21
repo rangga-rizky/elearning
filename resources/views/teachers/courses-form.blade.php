@@ -30,7 +30,7 @@
     <div class="box-body">
       <!-- Date dd/mm/yyyy -->
       @if($adaInput=='true')
-        <form action="update_teacher" method="post">
+        <form action="courses/update" method="post">
           <input type="hidden" name="c_id" value="{{$isiInput['c_id']}}">
       @else
         <form action="courses" method="post">

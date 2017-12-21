@@ -59,6 +59,12 @@ class CourseController extends Controller
 
     }
 
+    // Hasil submit form edit course
+    public function update_teacher(Request $request)
+    {
+        # code...
+    }
+
     //menampilkan katalog kursus bedasarkan kategori
     public function showByCategory($category_id){
         $user = Auth::user();
@@ -91,5 +97,17 @@ class CourseController extends Controller
         Session::flash('flash_message', 'A course successfully deleted!');
         return redirect()->back();
      
+    }
+
+       // Laman manajemen session, assignment, dan quiz pada suatu course yang diampu oleh guru 
+    public function manage_teacher($s_id)
+    {
+        $user = Auth::user();
+        $course = Course::where("id",$s_id)->first();
+        return view('teachers/course-manage', ['user' => $user,
+                                    'course' =>  $course ]);
+        // $course = Session::where("id",$s_id)->first();
+        // return view('student/course_show', ['user' => $user,
+        //                             'course' =>  $course ]);        
     }
 }

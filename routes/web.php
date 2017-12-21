@@ -20,6 +20,7 @@ Route::get('/dashboard', 'DashboardController@index');//dashboard untuk user dan
 
 //courses
 Route::post('courses', 'CourseController@store_teacher'); // buat kursus oleh teacher
+Route::post('courses/update', 'CourseController@update_teacher'); // update kursus oleh teacher
 Route::get('/courses/student', 'CourseController@indexStudent'); //course catalog untuk student
 Route::get('/courses/category/{category_id}', 'CourseController@showByCategory'); //course catalog by category untuk student
 Route::get('courses/delete/{id}', [ 'as' => 'courses/delete_teacher/{id}',
@@ -27,6 +28,7 @@ Route::get('courses/delete/{id}', [ 'as' => 'courses/delete_teacher/{id}',
 Route::get('courses/edit/{id}', [ 'as' => 'courses/edit/{id}', 
 								 'uses' => 'CourseController@edit_teacher']);// menampilkan halaman edit kursus
 Route::get('/courses/{id}', 'CourseController@show')->middleware('can:show-course,id');;// menampilkan halamn kursus by id
+Route::get('/courses/manage/{id}', 'CourseController@manage_teacher'); // menampilkan session by id kursus untuk teacher owner kursus
 
 //student-assignment
 Route::post('/student_assignment', 'StudentAssignmentController@store'); //mengumpulkan tugas oleh student owner student assignment
@@ -36,8 +38,13 @@ Route::get('/assignment/student/{assignment_id}', 'AssignmentController@showbyUs
 
 //session
 Route::get('/sessions/teacher', 'SessionController@indexByAuthor'); // menampilkan semua session untuk teacher owner kursus
-Route::get('/sessions/courses/{id}', 'SessionController@showByCourse'); // menampilkan session by id kursus untuk teacher owner kursus
-
+//Route::get('/sessions/courses/{id}', 'SessionController@showByCourse'); // menampilkan session by id kursus untuk teacher owner kursus
+Route::get('/sessions/create', 'SessionController@create'); // membuat session, course dipilih manual
+Route::get('/sessions/create-on-course/{id}', 'SessionController@createByCourseId'); // membuat session, course dipilih auto 
+Route::get('/sessions/delete/{id}/{c_id}', 'SessionController@delete_teacher'); // hapus session by id 
+Route::get('/sessions/edit/{id}', 'SessionController@edit_teacher'); // menampilkan halaman unutk edit session
+Route::post('sessions', 'SessionController@store_teacher'); // insert data session
+Route::post('sessions/update', 'SessionController@update_teacher'); // update data session 
 
 //quiz
 Route::get('/quiz/student/start/{quiz_id}', 'QuizController@startQuiz'); //mulai kuis hanya untuk member kursus dan belum pernah mulai
@@ -48,6 +55,9 @@ Route::post('/student_answer', 'QuizStudentAnswerController@store');
 
 //user
 Route::get('/user', 'UserController@show');
+
+//lesson
+//Route::get('/lessons/create-on-course/{id}', 'LessonController@createBySessionId'); // membuat lesson, session dipilih auto 
 
 
 Route::prefix('admin')->namespace('Admin')->middleware('can:admin-only')->group(function () {
