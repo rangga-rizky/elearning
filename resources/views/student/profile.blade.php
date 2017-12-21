@@ -113,6 +113,9 @@
               </table>
             </div>
             <!-- /.box-body -->
+            <div class="box-header" style="float: right;">
+              <a href="{{url('user/pdf')}}" class="btn btn-primary ">Print</a>
+            </div>
           </div>
           <!-- /.box -->
         </div>

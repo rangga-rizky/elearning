@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Event extends Model
 {
+     protected $fillable = [
+        'name', 'time','type','group_id'
+    ];
+
+    protected $public = false; 
 
 	 public function group()
     {

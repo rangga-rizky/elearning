@@ -37,8 +37,11 @@ class AuthServiceProvider extends ServiceProvider
     {    
         Gate::define('start-quiz', function ($user , $quiz_id) {
             $groupsIds = $user->getGroupsIds();
-            $quiz = Quiz::find($quiz_id);
+            $quiz = Quiz::where("closed_time","<","date('Y-m-d H:i:s')")->where("id",$quiz_id)->first();
             //cek apakah member kursus
+            if(empty($quiz)){
+                return false;
+            }
             $enrollments = Enrollment::whereIn('group_id',$groupsIds)->where('course_id',$quiz->session->course["id"])->first();
             //cek apakah sudah enroll quiz
             $quizEnrollment = QuizEnrollment::where(["user_id" => $user->id,

@@ -55,6 +55,7 @@ Route::post('/student_answer', 'QuizStudentAnswerController@store');
 
 //user
 Route::get('/user', 'UserController@show');
+Route::get('/user/pdf', 'UserController@pdf');
 
 //lesson
 //Route::get('/lessons/create-on-course/{id}', 'LessonController@createBySessionId'); // membuat lesson, session dipilih auto 
