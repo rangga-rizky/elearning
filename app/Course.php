@@ -22,6 +22,12 @@ class Course extends Model
         return $this->hasMany('App\Enrollment');
     }
 
+    public function events()
+    {
+        return $this->hasMany('App\Event');
+    }
+
+
      public function grades()
     {
         return $this->hasMany('App\Grading');

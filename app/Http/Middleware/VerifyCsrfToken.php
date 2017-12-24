@@ -21,7 +21,10 @@ class VerifyCsrfToken extends Middleware
         "admin/user",
         "admin/user/update",
         "admin/user/reset_password",
-        "admin/user/delete"
+        "admin/user/delete",
+        "admin/user_groups",
+        "admin/user_groups/delete",
+        "admin/groups"
 
     ];
 }

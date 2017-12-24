@@ -63,6 +63,7 @@ Route::get('/user/pdf', 'UserController@pdf');
 
 Route::prefix('admin')->namespace('Admin')->middleware('can:admin-only')->group(function () {
    Route::get('/dashboard', 'DashboardController@index');
+   
    Route::get('/user/create', 'UserController@create');
    Route::get('/user', 'UserController@index');
    Route::get('/user/{id}', 'UserController@show');
@@ -70,4 +71,13 @@ Route::prefix('admin')->namespace('Admin')->middleware('can:admin-only')->group(
    Route::post('/user/update', 'UserController@update');
    Route::post('/user/delete', 'UserController@remove');
    Route::post('/user/reset_password', 'UserController@reset_password');
+
+   Route::post('/groups', 'GroupController@store');
+
+   Route::post('/user_groups', 'UserGroupController@store');   
+   Route::post('/user_groups/delete', 'UserGroupController@remove');
+   Route::get('/user_groups', 'UserGroupController@index');
+   Route::get('/user_groups/{group_id}', 'UserGroupController@show');
+
+
 });

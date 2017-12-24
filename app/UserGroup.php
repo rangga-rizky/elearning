@@ -7,13 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class UserGroup extends Model
 {
     //
-      protected $table = 'user_groups';
+    protected $table = 'user_groups';
+    public $timestamps = false;
 
-    public function users()
+     protected $fillable = [
+        'user_id', 'group_id'
+    ];
+
+    public function user()
     {
         return $this->belongsTo('App\User');
     }
-
 
 
     public function group()

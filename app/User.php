@@ -47,9 +47,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Course');
     }
 
-    public function userGroups()
+     public function user_groups()
     {
-        return $this->hasMany('App\UserGroup');
+        return $this->hasMany('App\UserGroup','user_id','id');
     }
 
     public function grades()
@@ -65,5 +65,13 @@ class User extends Authenticatable
         return $groupsIds;
 
 
+    }
+
+    public function scopeNotMember($query,$group_id)
+    {        
+
+        return $query->whereHas('user_groups', function ($q) use($group_id){
+                $q->where('group_id','!=' , $group_id);   
+            })->orwhereDoesntHave('user_groups');
     }
 }

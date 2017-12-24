@@ -37,7 +37,7 @@ class AuthServiceProvider extends ServiceProvider
     {    
         Gate::define('start-quiz', function ($user , $quiz_id) {
             $groupsIds = $user->getGroupsIds();
-            $quiz = Quiz::where("closed_time","<","date('Y-m-d H:i:s')")->where("id",$quiz_id)->first();
+            $quiz = Quiz::whereDate("closed_time",">",date('Y-m-d H:i:s'))->where("id",$quiz_id)->first();
             //cek apakah member kursus
             if(empty($quiz)){
                 return false;

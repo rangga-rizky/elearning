@@ -17,6 +17,13 @@ class Event extends Model
         return $this->belongsTo('App\Group');
     }
 
+
+     public function courses()
+    {
+        return $this->belongsTo('App\Course');
+    }
+
+
     public function scopeByGroup($query,$groups)
     {        
         foreach ($groups as $group) {
@@ -25,6 +32,17 @@ class Event extends Model
 
         return $query->whereHas('group', function ($q) use($group_ids){
                 $q->whereIn('group_id', $group_ids);   
+            })->get();
+    }
+
+    public function scopeByCourse($query,$courses)
+    {        
+        foreach ($courses as $course) {
+            $course_ids[] = $course->id;
+        }
+
+        return $query->whereHas('group', function ($q) use($course_ids){
+                $q->whereIn('course_id', $course_ids);   
             })->get();
     }
 }
