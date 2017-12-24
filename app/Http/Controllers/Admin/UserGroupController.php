@@ -51,8 +51,10 @@ class UserGroupController extends Controller
 	public function show($group_id){
 		$user = Auth::user();
 		$users = User::NotMember($group_id)->where("role_id",1)->get();
+		$group = Group::find($group_id);
 		$userGroups = UserGroup::where("group_id",$group_id)->get();
 		return view('admins/show_user_group', ['user' => $user,
+										'group' => $group,
 										'userGroups' => $userGroups,
 										'users' => $users]);
 	}

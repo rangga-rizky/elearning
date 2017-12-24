@@ -51,10 +51,10 @@
     </div>
     @endif
 
-    <div class="row" style="margin-top: 10px">
+    <div class="row" >
       @foreach($groups as $group)
       <a href="{{ url('admin/user_groups/'.$group->id)}}">
-      <div class="col-md-4">
+      <div class="col-md-4" style="margin-top: 20px;">
         <div class="bg-blue" style="padding: 10px">
           <h3 class="widget-user-username">{{$group->name}}</h3>
         </div>

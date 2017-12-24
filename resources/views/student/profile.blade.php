@@ -66,9 +66,13 @@
             </div>
             <div class="box-footer no-padding">
               <ul class="nav nav-stacked">
-                @foreach($user->userGroups as $group)
-                  <li style="padding: 10px">{{ $group->group->name }} </li>
-                @endforeach
+                @if(is_null($user->userGroups))
+                  <li style="padding: 10px">Not Registered in any Groups </li>
+                @else
+                  @foreach($user->userGroups as $group)
+                    <li style="padding: 10px">{{ $group->group->name }} </li>
+                  @endforeach
+                @endif
               </ul>
             </div>
           </div>

@@ -79,5 +79,10 @@ Route::prefix('admin')->namespace('Admin')->middleware('can:admin-only')->group(
    Route::get('/user_groups', 'UserGroupController@index');
    Route::get('/user_groups/{group_id}', 'UserGroupController@show');
 
+   Route::post('/enrollments', 'EnrollmentController@store');
+    Route::post('/enrollments/delete', 'EnrollmentController@remove');
+   Route::get('/enrollments', 'EnrollmentController@index');
+   Route::get('/enrollments/{course_id}', 'EnrollmentController@show');
+
 
 });

@@ -8,14 +8,14 @@
   <section class="content-header" >
     <div class="header-section ">
       <h1>
-        <i class="gi gi-book_open"></i>{{$group->name}}
+        <i class="gi gi-book_open"></i>{{$course->title}}
       </h1>
     </div>
     <button type="submit" data-toggle="modal" data-target="#myModal" class="btn btn-primary">Add Member</button>
   </section>
 
 
-  <!-- Modal -->
+   <!-- Modal -->
   <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
@@ -25,17 +25,17 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Add Member</h4>
         </div>
-        <form method="POST" action="{{ url('admin/user_groups') }}">
+        <form method="POST" action="{{ url('admin/enrollments') }}">
           <div class="modal-body">
             <div class="form-group">
 
-              @foreach($users as $data)
+              @foreach($groups as $data)
               <div class="checkbox">
-                <label><input type="checkbox" name="user_id[]" value="{{$data->id}}">{{$data->username}} ({{$data->email}})</label>
+                <label><input type="checkbox" name="group_id[]" value="{{$data->id}}">{{$data->name}}</label>
               </div>
 
               @endforeach
-              <input type="hidden" name="group_id" value="{{$group->id}}">
+              <input type="hidden" name="course_id" value="{{$course->id}}">
             </div>
           </div>
           <div class="modal-footer">
@@ -49,6 +49,7 @@
     </div>
   </div>
 
+
   <!-- Main content -->
   <section class="content">
 
@@ -59,9 +60,9 @@
   @endif
 
 
-  @if ($errors->has('user_id'))
+  @if ($errors->has('group_id'))
   <span class="help-block" style="color: red;">
-    <strong>you need choose minimum one user </strong>
+    <strong>you need choose minimum one group </strong>
   </span>
   @endif
 
@@ -69,22 +70,20 @@
     <thead>
       <tr>
         <th>Id</th>
-        <th>Username</th>
-        <th>Email</th>
+        <th>group name</th>
         <th>Action</th>
       </tr>
     </thead>
     <tbody>
-      @foreach($userGroups as $userGroup)
+      @foreach($course->enrollments as $enrollment)
 
-      <form class="form-horizontal" method="POST" action="{{ url('admin/user_groups/delete') }}">
+      <form class="form-horizontal" method="POST" action="{{ url('admin/enrollments/delete') }}">
         <tr>
-          <td>{{$userGroup->user->id}}</td>
-          <td>{{$userGroup->user->username}}</td>
-          <td>{{$userGroup->user->email}}</td>
+          <td>{{$enrollment->id}}</td>
+          <td>{{$enrollment->group->name}}</td>
           <td>
-            <input type="hidden" value="{{$userGroup->id}}" name="id">
-             <input type="hidden" value="{{$userGroup->group_id}}" name="group_id">
+            <input type="hidden" value="{{$enrollment->id}}" name="id">
+             <input type="hidden" value="{{$course->id}}" name="course_id">
             <button type="submit" class="btn btn-danger">Remove</button>
           </td>
         </tr>
