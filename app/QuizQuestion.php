@@ -14,6 +14,6 @@ class QuizQuestion extends Model
     }
 
      public function choiches(){
-    	return $this->hasOne("App\QuizMultipleChoice");
+    	return $this->hasMany("App\QuizMultipleChoice");
     }
 }

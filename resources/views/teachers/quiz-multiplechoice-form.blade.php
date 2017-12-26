@@ -24,10 +24,15 @@
                           $isiInput['q_order'] = $val->number_order;
                           $isiInput['is_essay'] = $val->is_essay;
                           $isiInput['qq_answer'] = $val->answer;
-                          $isiInput['qq_answer1'] = $val->answer1;
-                          $isiInput['qq_answer2'] = $val->answer2;
-                          $isiInput['qq_answer3'] = $val->answer3;
-                          $isiInput['qq_answer4'] = $val->answer4;
+                          foreach ($val->choiches->where('quiz_question_id',$val->id) as $qm) {
+                            // echo "<h3>Ams{$qm->answer1}</h3>";
+                            // var_dump($qm);
+                            $isiInput['qq_answer1'] = $qm->answer1;
+                            $isiInput['qq_answer2'] = $qm->answer2;
+                            $isiInput['qq_answer3'] = $qm->answer3;
+                            $isiInput['qq_answer4'] = $qm->answer4;
+                            // break;
+                          }
                           
                           // echo "<h4>".$isiInput['fix_date']."</h4>";
                           // echo "<h4>".$isiInput['closed_time']."</h4>";
@@ -72,25 +77,25 @@
                     
                   </div><!-- /.form group -->
                   <div class="form-group">
-                    <label>Answer 1</label>
+                    <label>Answer A</label>
                     <textarea name="answer1" class="form-control">@if($adaInput=='true'){{$isiInput['qq_answer1']}}@endif</textarea>
                     <!-- <input type="text" name="closed_time" class="form-control"> -->
                   </div>
 
                   <div class="form-group">
-                    <label>Answer 2</label>
+                    <label>Answer B</label>
                     <textarea name="answer2" class="form-control">@if($adaInput=='true'){{$isiInput['qq_answer2']}}@endif</textarea>
                     <!-- <input type="text" name="closed_time" class="form-control"> -->
                   </div>
 
                   <div class="form-group">
-                    <label>Answer 3</label>
+                    <label>Answer C</label>
                     <textarea name="answer3" class="form-control">@if($adaInput=='true'){{$isiInput['qq_answer3']}}@endif</textarea>
                     <!-- <input type="text" name="closed_time" class="form-control"> -->
                   </div>
 
                   <div class="form-group">
-                    <label>Answer 4</label>
+                    <label>Answer D</label>
                     <textarea name="answer4" class="form-control">@if($adaInput=='true'){{$isiInput['qq_answer4']}}@endif</textarea>
                     <!-- <input type="text" name="closed_time" class="form-control"> -->
                   </div>
@@ -98,14 +103,17 @@
                   <div class="form-group">
                     <label>True Answer</label>
                     <select name="answer" class="form-control">
-                    	<?php for($i=1; $i<=4; $i++){ 
+                    	<?php 
+                      $alphabet = range('A', 'Z');
+                      for($i=0; $i<=3; $i++){ 
                     		if($adaInput=='true')
-                    			if ($answer==$i) 
-                    				echo '<option value="'.$i.'" selected>Answer '.$i.'</option>';
+                    			// if ($answer==$i) 
+                          if ($isiInput['qq_answer']==$alphabet[$i]) 
+                    				echo '<option value="'.$alphabet[$i].'" selected>Answer '.$alphabet[$i].'</option>';
                     			else
-                    				echo '<option value="'.$i.'" >Answer '.$i.'</option>';
+                    				echo '<option value="'.$alphabet[$i].'" >Answer '.$alphabet[$i].'</option>';
                     		else
-                    			echo '<option value="'.$i.'" >Answer '.$i.'</option>';
+                    			echo '<option value="'.$alphabet[$i].'" >Answer '.$alphabet[$i].'</option>';
                     		?>
                     	<?php } ?>
                     </select>
@@ -124,30 +132,6 @@
             </div><!-- /.box-body -->
           </div><!-- /.box -->
         </div>
-        <?php if($adaInput=='true'){ ?>
-        <div class="col-md-6">
-          <div class="box box-danger">
-            <div class="box-header">
-                <h3 class="box-title">
-                  Questions of this quiz
-                </h3>
-                <div class="box-tools pull-right">
-                  <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-                </div>
-            </div>
-            <div class="box-body">
-              <table class="table">
-                <tr>
-                  <th>No</th>
-                  <th>Question</th>
-                  <th>Action</th>
-                </tr>
-                
-              </table>
-            </div>
-          </div>
-        </div>
-        <?php } ?>
         
     </div><!-- /.row -->
 
@@ -160,27 +144,3 @@
     z-index: 200000
   }
 </style>
-<script type="text/javascript">
-    $(function () {
-      $('#datetimepicker2').datetimepicker({
-            locale: 'id',
-            format: 'DD-MM-YYYY HH:mm:ss',
-            // inline: true,
-            // sideBySide: true 
-        });
-      $('#datetimepicker2').on("dp.change", function (e) {
-          var closed_time = $('#datetimepicker2 input[name="c_time"]').val();
-          var split_time = closed_time.split(' ');
-          var date = split_time[0].split('-');
-          var fix_date = date[2]+'-'+date[1]+'-'+date[0]+' '+split_time[1];
-          console.log(closed_time);
-          console.log(fix_date);
-          $('#datetimepicker2 input[name="closed_time"]').val(fix_date);
-            // $('#datetimepicker7').data("DateTimePicker").minDate(e.date);
-            // console.log(e.date);
-        });
-      <?php  if ($adaInput=='true') { ?>
-        $('input[name="closed_time"]').val(<?=$isiInput['fix_date']?>);
-      <?php } ?>
-    });
-</script>

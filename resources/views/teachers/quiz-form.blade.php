@@ -129,7 +129,7 @@
                   <td>{{$q->question}}</td>
                   <td><?=($q->is_essay==1)? 'Essay': 'Multiplechoice' ?></td>
                   <td>
-                    <a class="btn btn-warning" href="../../../../quiz-question/edit/{{$q->id}}}/{{$isiInput['q_id']}}/{{$isiInput['s_id']}}/{{$course->id}}">Edit</a>
+                    <a class="btn btn-warning" href="../../../../quiz-question/edit-multiplechoice/{{$q->id}}/{{$isiInput['q_id']}}/{{$isiInput['s_id']}}/{{$course->id}}">Edit</a>
                     <a class="btn btn-danger" href="../../../../quiz-question/delete/{{$q->id}}">Delete</a>
                   </td>
                 </tr>

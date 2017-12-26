@@ -17,16 +17,16 @@ use Session as Flash;
 class QuizController extends Controller
 {
     //
-    public function __construct()
+	public function __construct()
     {
         $this->middleware('auth');
     }
 
     //menampilkan quiz berdasarkan id untuk user member course
     public function showForUser($quiz_id){
-        $user = Auth::user();
-        $quiz = Quiz::where("id",$quiz_id)->first();
-        $quizEnrollments = QuizEnrollment::where("user_id",$user->id)->where("quiz_id",$quiz_id)->first();
+    	$user = Auth::user();
+    	$quiz = Quiz::where("id",$quiz_id)->first();
+    	$quizEnrollments = QuizEnrollment::where("user_id",$user->id)->where("quiz_id",$quiz_id)->first();
 
         $dt = Carbon::parse($quiz['closed_time']);
         $quiz["remaining"] = $dt->diffForHumans(Carbon::now());
@@ -44,7 +44,7 @@ class QuizController extends Controller
     }
 
     public function startQuiz(Request $request,$quiz_id){
-        $user = Auth::user();
+    	$user = Auth::user();
         $quiz = Quiz::find($quiz_id);
         $questions = QuizQuestion::where("quiz_id",$quiz_id)->orderBy("number_order")->paginate(1);
         if ($request->ajax()) {
@@ -168,6 +168,19 @@ class QuizController extends Controller
         $quiz = Quiz::where("id",$q_id)->first();
         return view('teachers/quiz-multiplechoice-form', ['user' => $user,
                                     'quiz'=>$quiz,
+                                    's_id'=>$s_id,
+                                    'c_id'=>$c_id,
+                                    'q_id'=>$q_id]);   
+    }
+
+    public function editMultiplechoiceQuestion($id, $q_id, $s_id, $c_id)
+    {
+        $user = Auth::user();
+        $quiz = Quiz::where("id",$q_id)->first();
+        $question = QuizQuestion::where("id",$id)->get();
+        return view('teachers/quiz-multiplechoice-form', ['user' => $user,
+                                    'quiz'=>$quiz,
+                                    'value'=>$question,
                                     's_id'=>$s_id,
                                     'c_id'=>$c_id,
                                     'q_id'=>$q_id]);   
