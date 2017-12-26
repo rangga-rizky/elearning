@@ -7,6 +7,7 @@
             <input type="hidden"  name="number" value="{{$question->number_order}}">
         </h4>
         @if(!empty($question->choiches))
+        
         <input type="radio" name="ans_{{$question->id}}" value="A" > A. {{$question->choiches["answer1"] }} </br>
         <input type="radio" name="ans_{{$question->id}}" value="B"> B. {{$question->choiches["answer2"] }} </br>
         <input type="radio" name="ans_{{$question->id}}" value="C"> C. {{$question->choiches["answer3"] }} </br>

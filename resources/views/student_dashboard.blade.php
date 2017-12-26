@@ -14,7 +14,6 @@
             <div id="modalBody" class="modal-body"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <a class="btn btn-primary" id="eventUrl" target="_blank">Event Page</a>
             </div>
         </div>
     </div>

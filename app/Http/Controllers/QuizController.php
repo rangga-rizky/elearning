@@ -47,6 +47,7 @@ class QuizController extends Controller
     	$user = Auth::user();
         $quiz = Quiz::find($quiz_id);
         $questions = QuizQuestion::where("quiz_id",$quiz_id)->orderBy("number_order")->paginate(1);
+
         if ($request->ajax()) {
             return view('student/load_question', ['questions' => $questions])->render();  
         }
