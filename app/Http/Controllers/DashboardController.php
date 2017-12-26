@@ -27,8 +27,7 @@ class DashboardController extends Controller
 
     private function student($user){
         $user = Auth::user();
-        if(sizeof($user->userGroups) > 0){            
-            //$events = Event::byGroup($user->userGroups);       
+        if(sizeof($user->userGroups) > 0){   
             $courses = Course::enrolled($user->userGroups);
             $events = Event::ByCourse($courses); 
         }else{

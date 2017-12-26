@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Session;
+use App\Course;
 use Auth;
 use DB;
+use Session as Flash;
 
 class SessionController extends Controller
 {

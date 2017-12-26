@@ -4,8 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Assingment;
+use App\Session;
+use App\Course;
 use App\StudentAssingment;
 use Auth;
+use DB;
+
+use Session as Flash;
 use Carbon\Carbon;
 
 class AssignmentController extends Controller
@@ -35,4 +40,75 @@ class AssignmentController extends Controller
 
     }
 
+    public function createBySessionId($sess_id, $course_id)
+    {
+        $user = Auth::user();
+        $session = Session::where("id",$sess_id)->first();
+        $course = Course::where("id",$course_id)->first();
+        return view('teachers/assignments-form', ['user' => $user,
+                                    'session' =>  $session ,
+                                    'course' => $course,
+                                    's_id'=>$sess_id]);
+    }
+
+    public function storeBySessionId(Request $request)
+    {
+        $user = Auth::user();
+        $this->validate($request, [
+            'title' => 'required',
+            'description'=>'required',
+            'closed_time'=>'required',
+            'session' => 'required'//,
+            // 'description' => 'required'
+        ]);
+
+        $id = DB::table('assingments')->insertGetId(
+            [
+                'session_id' => $request->input('session'), 
+                'title' => $request->input('title'),
+                'created_time' =>date('Y-m-d h:i:s'),
+                'description' =>$request->input('description'),
+                'closed_time' => $request->input('closed_time')
+            ]
+        );
+        Flash::flash('flash_message', 'An assignment successfully added!');
+        return redirect('/courses/manage/'.$request->input('c_id'));;
+
+    }
+
+    public function editByTeacher($id, $s_id, $c_id)
+    {
+        $user = Auth::user();
+        $session = Session::where("id",$s_id)->first();
+        $course = Course::where("id",$c_id)->first();
+        $assignment = Assingment::where("id",$id)->get();
+        return view('teachers/assignments-form', ['user' => $user,
+                                    'session' =>  $session ,
+                                    'course' => $course,
+                                    'value'=>$assignment,
+                                    's_id'=>$s_id]);
+    }
+
+    public function updateByTeacher(Request $request)
+    {
+        $user = Auth::user();
+        $this->validate($request, [
+            'title' => 'required',
+            'description'=>'required',
+            'closed_time'=>'required',
+            'session' => 'required'
+        ]);
+
+        $id = DB::table('assingments')->where('id', $request->input('a_id'))
+            ->update(
+            [
+                'session_id' => $request->input('session'), 
+                'title' => $request->input('title'),                
+                'description' =>$request->input('description'),
+                'closed_time' => $request->input('closed_time')
+            ]
+        );
+        Flash::flash('flash_message', 'An assignment successfully updated!');
+        return redirect('/courses/manage/'.$request->input('c_id'));;
+    }
 }

@@ -86,3 +86,37 @@ Route::prefix('admin')->namespace('Admin')->middleware('can:admin-only')->group(
 
 
 });
+
+
+//Lesson
+Route::get('/lessons/create-on-course/{s_id}/{c_id}', 'LessonController@createBySessionId'); // membuat lesson, session dipilih auto 
+Route::get('/lessons/update-on-course/{id}/{s_id}/{c_id}', 'LessonController@editByTeacher'); // mengedit lesson, session dipilih auto 
+Route::get('/lessons/delete/{id}', 'LessonController@deleteByTeacher'); // membuat lesson, session dipilih auto 
+
+Route::post('lessons', 'LessonController@storeBySessionId'); // store lesson 
+Route::post('lessons/update', 'LessonController@updateBySessionId'); // update lesson
+
+//Assignment
+Route::get('/assignments/create-on-course/{s_id}/{c_id}', 'AssignmentController@createBySessionId'); 
+Route::get('/assignments/update-on-course/{id}/{s_id}/{c_id}', 'AssignmentController@editByTeacher'); // membuat assignment
+Route::post('assignments', 'AssignmentController@storeBySessionId'); // menampilkan session by id kursus untuk teacher owner 
+Route::post('assignments/update', 'AssignmentController@updateByTeacher'); // menampilkan session by id kursus untuk teacher owner 
+
+
+//Quiz
+Route::get('/quiz/create-on-course/{s_id}/{c_id}', 'QuizController@createBySessionId'); // membuat lesson, session dipilih auto 
+Route::get('/quiz/manage-on-course/{id}/{s_id}/{c_id}', 'QuizController@editByTeacher'); // mengedit lesson, session dipilih auto 
+Route::get('/quiz/delete/{id}', 'QuizController@deleteByTeacher'); // membuat lesson, session dipilih auto 
+
+Route::post('quiz', 'QuizController@storeBySessionId'); // store lesson 
+Route::post('quiz/update', 'QuizController@updateByTeacher'); // update lesson
+
+
+//Quiz question
+Route::get('/quiz-question/add-essay/{q_id}/{s_id}/{c_id}', 'QuizController@addEssayQuestion'); // membuat lesson, session dipilih auto 
+Route::get('/quiz-question/add-multiplechoice/{id}/{s_id}/{c_id}', 'QuizController@addMultiplechoiceQuestion'); // mengedit lesson, session dipilih auto 
+Route::get('/quiz-question/delete/{id}', 'QuizController@deleteQuestion'); // membuat lesson, session dipilih auto 
+
+Route::post('quiz-question', 'QuizController@storeEssayQuestion'); // store lesson 
+Route::post('quiz-question/quiz-multiplechoice-question', 'QuizController@storeMultiplechoiceQuestion'); // store lesson 
+Route::post('quiz-question/update', 'QuizController@updateEssayQuestion'); // update lesson
