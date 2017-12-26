@@ -17,7 +17,7 @@
 
   <p><strong>Name : </strong>{{$user->username}}</p>
   <p><strong>Current Active Group : </strong> 
-    @foreach($user->userGroups as $group)
+    @foreach($user->user_groups as $group)
       {{ $group->group->name }}              
     @endforeach</p>
   <div class="box-body no-padding">
