@@ -59,7 +59,7 @@ class User extends Authenticatable
 
     public function getGroupsIds(){
 
-        foreach ($this->userGroups()->get() as $user_group) {
+        foreach ($this->user_groups()->get() as $user_group) {
             $groupsIds[] = $user_group->group_id;
         }
         return $groupsIds;

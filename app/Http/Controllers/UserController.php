@@ -19,6 +19,7 @@ class UserController extends Controller
 	public function show(){
 		$user = Auth::user();
 		$grades = Grading::where('user_id',$user->id)->get();
+		
 		$number_finished_assignment = StudentAssingment::where("user_id",$user->id)->count();		
 		$number_finished_quiz = QuizEnrollment::where("user_id",$user->id)->count();
 		return view('student/profile', ['user' => $user,
