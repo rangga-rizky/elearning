@@ -36,16 +36,16 @@
             <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard </a></li>
           </ul>
         </li>
-        <li class="treeview">
-          <a href="#">
+        <li>
+          <a href="{{url('dashboard')}}"><i class="fa fa-pie-chart"></i> Courses</a>
+          <!-- <a href="#">
             <i class="fa fa-pie-chart"></i>
             <span>Course</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
-          </a>
+          </a> -->
           <ul class="treeview-menu">
-          	<li><a href="{{url('dashboard')}}"><i class="fa fa-circle-o"></i> Courses</a></li>
             <li><a href="{{url('sessions/teacher')}}"><i class="fa fa-circle-o"></i> Sessions</a></li>
             <li><a href="lessons"><i class="fa fa-circle-o"></i> Lessons</a></li>
             <li><a href="pages/charts/morris.html"><i class="fa fa-circle-o"></i> Assignments</a></li>

@@ -1,13 +1,20 @@
+ @include('layouts/header')
+ @include('layouts/teacher_nav')
+ <div class="content-wrapper">
+    <section class="content">
+
+      <div class="row">
+
 <div class="col-md-7">
               @if(isset($value))
                 <?php $adaInput = 'true'?>
                 @foreach($value as $val) 
                   <?php
-                  $isiInput['name'] = $val->name;
-                  $isiInput['l_id'] = $val->l_id;
-                  $isiInput['cl_id'] = $val->cl_id;
-                  $isiInput['title'] = $val->title;
-                  $isiInput['description'] = $val->description;
+                  $isiInput['l_id'] = $val->id;
+                  $isiInput['s_id'] = $val->session_id;
+                  $isiInput['text'] = $val->text;
+                  $isiInput['filepath'] = $val->filepath;
+                  $isiInput['modul_type'] = $val->modul_type;
                   ?>
                 @endforeach
               @else
@@ -17,9 +24,9 @@
     <div class="box-header">
       <h3 class="box-title">
         @if($adaInput=='true')
-          Update a course
+          Update a lesson
         @else  
-          Create a course
+          Create a lesson 
         @endif
         </h3>
 
@@ -30,46 +37,84 @@
     <div class="box-body">
       <!-- Date dd/mm/yyyy -->
       @if($adaInput=='true')
-        <form action="update_teacher" method="post">
+        <form action="../../../lessons/update" method="post" enctype="multipart/form-data">
           <input type="hidden" name="l_id" value="{{$isiInput['l_id']}}">
       @else
-        <form action="store_teacher" method="post">
+        <form action="../../../lessons" method="post" enctype="multipart/form-data">
       @endif
+        {{ csrf_field() }}
+        <input type="hidden" name="s_id" value="{{$s_id}}">
+        <input type="hidden" name="c_id" value="{{$course->id}}">
+        <div class="form-group">
+          <b>Course Name: {{$course->title}}</b><br>
+          <b>Session Name: {{$session->title}}</b>
+        </div>
+          <!-- <div class="form-group">
+            <label></label>
+          </div>
           <div class="form-group">
-            <label>Select course </label>
-            <select class="form-control select2" style="width: 100%;" name="course">
-              @if($adaInput=='true')
-                  @foreach($course as $c)      
-                    @if($isiInput['name'] == $c->name)
-                      <option selected value="{{ $c->c_id }}">{{ $c->name }}</option>
-                    @else
-                      <option value="{{ $c->c_id }}">{{ $c->name }}</option>
-                    @endif
-                  @endforeach
+            <label>Session Name: {{$session->title}}</label> -->
+            <!-- <select class="form-control select2" style="width: 100%;" name="session">
+              <?php 
+              /*if($adaInput=='true')
+                  foreach($session as $c){
+                    if($isiInput['s_id'] == $c->id)
+                      <option selected value="{{ $c->id }}">{{ $c->title }}</option>
+                    else
+                      <option value="{{ $c->id }}">{{ $c->title }}</option>
+                    
+                  }
 
-              @else
-                @foreach($course as $c)
-                  <option value="{{ $c->c_id }}">{{ $c->name }}</option>
-                @endforeach
-              @endif
-            </select>
-          </div><!-- /.form-group -->
+              else
+                foreach($session as $c){
+                    if($s_id == $c->id)
+                      <option selected value="{{ $c->id }}">{{ $c->title }}</option>
+                    else
+                      <option value="{{ $c->id }}">{{ $c->title }}</option>
+                
+                }
+              */
+              ?>
+            </select> 
+          </div>-->
+          <!-- /.form-group -->
           <div class="form-group">
             <label>Lesson name:</label>
             @if($adaInput=='true')
-              <input value="{{$isiInput['title']}}" type="text" class="form-control" name="title">
+              <input value="{{$isiInput['text']}}" type="text" class="form-control" name="text">
             @else
-              <input type="text" class="form-control" name="title">
+              <input type="text" class="form-control" name="text">
             @endif
             
           </div><!-- /.form group -->
-
+          <div class="form-group">
+            <label>Modul type </label>
+            <select class="form-control select2" style="width: 100%;" name="modul_type">
+                @if($adaInput=='true')
+                  @if($isiInput['modul_type'] =='praktikum')
+                    <option selected value="praktikum">Practice</option>
+                    <option value="teori">Theory</option>
+                  @else
+                    <option value="praktikum">Practice</option>
+                    <option selected value="teori">Theory</option>
+                  @endif
+                @else
+                    <option value="praktikum">Practice</option>
+                    <option value="teori">Theory</option>
+                @endif
+            </select>
+          </div>
           <!-- phone mask -->
           <div class="form-group">
-            <label>Short description:</label>
-            
-              <textarea class="form-control" rows="3" name="description" placeholder="Enter ..." style="margin: 0px 103.5px 0px 0px; height: 51px; width: 100%;">@if($adaInput=='true'){{$isiInput['description']}}@endif</textarea>
-            
+            <label>Last uploaded file :</label>
+              @if($adaInput=='true')
+                <br><a target="_blank" href="{{url($isiInput['filepath'] )}}">{{$isiInput['text'] }} </a>
+                <br>
+                <label>Upload new file to replace :</label>
+                <input type="file" name="fileupload" class="form-control" >
+              @else
+                <input type="file" name="fileupload" class="form-control" >
+              @endif
           </div><!-- /.form group -->
           @if($adaInput=='true')
             <input type="submit" class="btn btn-success" name="submit" value="Update" >
@@ -80,3 +125,10 @@
     </div><!-- /.box-body -->
   </div><!-- /.box -->
 </div>
+
+
+      </div><!-- /.row -->
+
+    </section><!-- /.content -->
+</div>
+@include('layouts/footer')

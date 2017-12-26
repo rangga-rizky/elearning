@@ -107,3 +107,6 @@
       </div>
     </nav>
   </header>
+  
+ @include('layouts/alert_error')
+ @include('layouts/alert_success')
