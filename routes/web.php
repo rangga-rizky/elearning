@@ -115,6 +115,8 @@ Route::post('quiz/update', 'QuizController@updateByTeacher'); // update lesson
 //Quiz question
 Route::get('/quiz-question/add-essay/{q_id}/{s_id}/{c_id}', 'QuizController@addEssayQuestion'); // membuat lesson, session dipilih auto 
 Route::get('/quiz-question/add-multiplechoice/{id}/{s_id}/{c_id}', 'QuizController@addMultiplechoiceQuestion'); // mengedit lesson, session dipilih auto 
+Route::get('/quiz-question/edit-multiplechoice/{id}/{q_id}/{s_id}/{c_id}', 'QuizController@editMultiplechoiceQuestion'); // mengedit lesson, session dipilih auto 
+
 Route::get('/quiz-question/delete/{id}', 'QuizController@deleteQuestion'); // membuat lesson, session dipilih auto 
 
 Route::post('quiz-question', 'QuizController@storeEssayQuestion'); // store lesson 
