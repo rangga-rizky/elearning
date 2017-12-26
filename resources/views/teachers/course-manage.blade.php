@@ -87,7 +87,7 @@
                   <li>
                     Quiz {{$i}} 
                     <span class="manage-session-{{$quiz->session_id}}" style="display: none;">
-                      <a class="btn btn-xs btn-warning" href="../../quiz/edit/{{$quiz->id}}"><i class="fa fa-pencil"></i></a>
+                      <a class="btn btn-xs btn-warning" href="../../quiz/manage-on-course/{{$quiz->id}}/{{$quiz->session_id}}/{{$course->id}}"><i class="fa fa-pencil"></i></a>
                       <a class="btn btn-xs btn-danger" href="../../quiz/delete/{{$quiz->id}}"><i class="fa fa-trash"></i></a>
                     </span>
                   </li>
