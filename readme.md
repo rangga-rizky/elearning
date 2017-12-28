@@ -11,6 +11,9 @@
 
 1.clone then composer install
 
+## Dashboard as Student
+<img src="https://ranggarizky.4bitclass.com/images/Capture.JPG" alt="Build Status">
+
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
